@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>audio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js"></script>
+    <style>
+        .component {
+            float: left;
+            width: 500px;
+            height: 500px;
+            margin: 1rem;
+        }
+
+        .thumbnail {
+            background-image: url('./../png/jgyShFzdB_Q.png');
+            background-size: cover;
+            background-position: center;
+            margin: 1rem;
+        }
+
+        .info {
+            position: absolute;
+        }
+
+        .property {
+            height: 30px;
+        }
+
+        .canvas {
+            position: absolute;
+            top: 150px;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="thumbnail component" id="thumbnail">
+
+    </div>
+    <div class="component">
+        <div class="info component">
+            <div id="track-data">
+
+            </div>
+            <div id="timer" class="property">
+
+            </div>
+            <div id="controller" class="property">
+                <button onclick="mySound.play()">Play</button>
+                <button onclick="mySound.pause()">Pause</button>
+                <button onclick="mySound.stop()">Stop</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        var mySound = new buzz.sound(`../mp3/${id}.mp3`);
+        var trackData = null;
+    </script>
+    <script>
+
+        mySound.bind("timeupdate", function () {
+            var timer = buzz.toTimer(this.getTime());
+            document.getElementById("timer").innerHTML = timer;
+        });
+    </script>
+    <script>
+        function createListElementByList(elements) {
+            var html = "<ul>";
+            for (var i = 0; i < elements.length; i++) {
+                html += `<li'>${elements[i]}</li>`;
+            }
+            html += "</ul>";
+            return;
+        }
+        var thumbnailElement = null;
+        function createListElementByMap(map) {
+            thumbnailElement = document.getElementById('thumbnail');
+            var html = "<ul>";
+            map.forEach((value, key, mapObject) => {
+                if (key == 'thumbnail') {
+                    thumbnailElement.style.backgroundImage = `url(${map.get(key)})`;
+                } else {
+                    html += `<li class='${key}'>${map.get(key)
+                        }</li>`;
+                }
+            });
+            html += "</ul>";
+            return html;
+        }
+
+        console.log(id);
+
+        var trackElement = document.getElementById('track-title');
+        var jsonRequest = new XMLHttpRequest();
+        jsonRequest.open("GET", `../json/${id}.json`, true);
+        jsonRequest.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    trackData = JSON.parse(this.responseText);
+                    var primaryMap = new Map();
+                    primaryMap.set('id', trackData.id);
+                    primaryMap.set('artist', trackData.artist);
+                    primaryMap.set('title', trackData.title);
+                    primaryMap.set('album', trackData.album);
+                    primaryMap.set('realsed', trackData.release_year);
+                    primaryMap.set('tags', trackData.tags)
+                    primaryMap.set('thumbnail', trackData.thumbnail)
+                    var html = createListElementByMap(primaryMap);
+                    console.log(html);
+                    var trackDataElement = document.getElementById('track-data');
+                    trackDataElement.innerHTML = html;
+                }
+            }
+        }
+        jsonRequest.send();
+    </script>
+</body>
+
+</html>

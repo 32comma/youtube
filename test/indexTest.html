@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/addons/p5.sound.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/translations/en/translation.json"></script>
+</head>
+
+<body>
+
+    <main>
+
+    </main>
+    <script>
+        let song, fft;
+
+        function setup() {
+            createCanvas(710, 400);
+            noFill();
+
+            song = loadSound('../mp3/55TYgbk4kZs.mp3');
+            song.start();   
+            fft = new p5.FFT();
+            fft.setInput(song);
+        }
+
+        function draw() {
+            background(200);
+
+            let spectrum = fft.analyze();
+
+            beginShape();
+            for (i = 0; i < spectrum.length; i++) {
+                vertex(i, map(spectrum[i], 0, 255, height, 0));
+            }
+            endShape();
+        }
+
+
+    </script>
+</body>
+
+</html>

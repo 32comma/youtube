@@ -1,0 +1,36 @@
+{
+    "url": "../mp3/55TYgbk4kZs.mp3",
+    "file": "../mp3/55TYgbk4kZs.mp3",
+    "_looping": false,
+    "_playing": true,
+    "_paused": false,
+    "_pauseTime": 0,
+    "_cues": [],
+    "_cueIDCounter": 0,
+    "_lastPos": 0,
+    "_workletNode": {},
+    "bufferSourceNodes": [
+        {
+            "_arrayIndex": 0
+        }
+    ],
+    "bufferSourceNode": {
+        "_arrayIndex": 0
+    },
+    "buffer": {},
+    "playbackRate": 1,
+    "input": {},
+    "output": {},
+    "reversed": false,
+    "startTime": 0,
+    "endTime": null,
+    "pauseTime": 0,
+    "mode": "sustain",
+    "startMillis": null,
+    "panPosition": 0,
+    "panner": {
+        "input": {},
+        "stereoPanner": {}
+    },
+    "_counterNode": {}
+}

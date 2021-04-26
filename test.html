@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Youtube</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js"></script>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <script>var mySound = null;</script>
+
+  <style>
+    .component {
+      float: left;
+      width: 500px;
+      height: 500px;
+      margin: 1rem;
+    }
+
+    .thumbnail {
+      background-image: url('./../png/jgyShFzdB_Q.png');
+      background-size: cover;
+      background-position: center;
+      margin: 1rem;
+    }
+
+    .info {
+      position: absolute;
+    }
+
+    .property {
+      height: 30px;
+    }
+
+    .canvas {
+      position: absolute;
+      top: 150px;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a class="navbar-brand" href="index.html">Youtube</a>
+      <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
+    
+    
+    
+    </button>
+  -->
+  </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!--
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">New</a> </li>
+      </ul>
+      -->
+    <!--      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      -->
+
+  </div>
+  </nav>
+  <div class="container mt-4">
+    <div class="row">
+
+      <div class="col-lg-3 col-12 recommend">
+        <div class="row mx-0">
+          <div class="col-12">
+            <h3 class="text-left mt-4 name">Hans Zimmer</h3>
+            <hr>
+            <div class="media mt-2" onclick="test('55TYgbk4kZs')" id="55TYgbk4kZs"> <img class="mr-3"
+                src="png/55TYgbk4kZs.png" width=64 height=64 alt="Generic placeholder image">
+              <div class="media-body">
+                <div class="title">First Step</div>
+              </div>
+            </div>
+            <div class="media mt-2" onclick="test('jgyShFzdB_Q')" id="jgyShFzdB_Q"> <img class="mr-3"
+                src="png/jgyShFzdB_Q.png" width=64 height=64 alt="Generic placeholder image">
+              <div class="media-body">
+                <div class="title">Time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12 recommend">
+        <div class="row mx-0">
+          <div class="col-12">
+            <h3 class="text-left mt-4 name">Stellar Jang</h3>
+            <hr>
+            <div class="media mt-2" onclick="test('9fmfpdGp9-w')" id="9fmfpdGp9-w"> <img class="mr-3"
+                src="png/9fmfpdGp9-w.png" width=64 height=64 alt="Generic placeholder image">
+              <div class="media-body">
+                <div class="title">In Other Words</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="thumbnail component" id="thumbnail">
+
+          </div>
+          <div class="component">
+            <div class="info component">
+              <div id="track-data">
+
+              </div>
+              <div id="timer" class="property">
+
+              </div>
+              <div id="controller" class="property">
+                <button onclick="mySound.play()">Play</button>
+                <button onclick="mySound.pause()">Pause</button>
+                <button onclick="mySound.stop()">Stop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  <script>
+    var currentId = null;
+    function test(id) {
+      currentId = id;
+      if (mySound == null) {
+        mySound = new buzz.sound(`mp3/${id}.mp3`);
+      } else {
+        mySound.stop();
+        mySound = new buzz.sound(`mp3/${id}.mp3`);
+      }
+      console.log(id);
+
+      mySound.play();
+      var trackData = null;
+
+      mySound.bind("timeupdate", function () {
+        var timer = buzz.toTimer(this.getTime());
+        document.getElementById("timer").innerHTML = timer;
+      });
+      function createListElementByList(elements) {
+        var html = "<ul>";
+        for (var i = 0; i < elements.length; i++) {
+          html += `<li'>${elements[i]}</li>`;
+        }
+        html += "</ul>";
+        return;
+      }
+      var thumbnailElement = null;
+      function createListElementByMap(map) {
+        thumbnailElement = document.getElementById('thumbnail');
+        var html = "<ul>";
+        map.forEach((value, key, mapObject) => {
+          if (key == 'thumbnail') {
+            thumbnailElement.style.backgroundImage = `url(${map.get(key)})`;
+          } else {
+            html += `<li class='${key}'>${map.get(key)
+              }</li>`;
+          }
+        });
+        html += "</ul>";
+        return html;
+      }
+
+      console.log(id);
+
+      var trackElement = document.getElementById('track-title');
+      var jsonRequest = new XMLHttpRequest();
+      jsonRequest.open("GET", `json/${currentId}.json`, true);
+      jsonRequest.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            trackData = JSON.parse(this.responseText);
+            var primaryMap = new Map();
+            primaryMap.set('id', trackData.id);
+            primaryMap.set('artist', trackData.artist);
+            primaryMap.set('title', trackData.title);
+            primaryMap.set('album', trackData.album);
+            primaryMap.set('realsed', trackData.release_year);
+            primaryMap.set('tags', trackData.tags)
+            primaryMap.set('thumbnail', trackData.thumbnail)
+            var html = createListElementByMap(primaryMap);
+            console.log(html);
+            var trackDataElement = document.getElementById('track-data');
+            trackDataElement.innerHTML = html;
+          }
+        }
+      }
+      jsonRequest.send();
+
+    }
+  </script>
+</body>
+
+</html>
