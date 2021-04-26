@@ -12,15 +12,39 @@
   <script>var mySound = null;</script>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      transform: scale(0.85);
+      overflow-y: auto;
+    }
+
+
+
     .component {
       float: left;
       width: 500px;
-      height: 500px;
+      height: 350px;
       margin: 1rem;
     }
 
+    ul,
+    li {
+      list-style-type: none;
+      text-align: left;
+    }
+
     .thumbnail {
-      background-image: url('./../png/jgyShFzdB_Q.png');
+      /*background-image: url('./../png/jgyShFzdB_Q.png');*/
       background-size: cover;
       background-position: center;
       margin: 1rem;
@@ -39,39 +63,35 @@
       top: 150px;
       left: 0;
     }
+
+    #main {
+      transform: scale(1);
+    }
+
+    #track {
+      transform: scale(1);
+    }
   </style>
 </head>
 
 <body>
-  <div class="container mt-4">
+  <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a class="navbar-brand" href="index.html">Youtube</a>
-      <!--
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
-    
-    
-    
-    </button>
-  -->
-  </div>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!--
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-        <li class="nav-item"> <a class="nav-link" href="#">New</a> </li>
-      </ul>
-      -->
-    <!--      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      -->
+      <div class="container">
+        <div class="col"> </div>
+        <div class="col-12 col-sm-auto">
+          <div id="controller" class="property">
+            <button class="btn btn-dark" onclick="mySound!=null?mySound.play():alert('Select track , plz')">Play</button>
+            <button class="btn btn-dark" onclick="mySound.pause()">Pause</button>
+            <button class="btn btn-dark" onclick="mySound.stop()">Stop</button>
+          </div>
+        </div>
 
+      </div>
   </div>
   </nav>
-  <div class="container mt-4">
+  <div class="container mt-1" id="main">
     <div class="row">
-
       <div class="col-lg-3 col-12 recommend">
         <div class="row mx-0">
           <div class="col-12">
@@ -108,33 +128,24 @@
       </div>
     </div>
   </div>
-  <hr>
-  <footer class="text-center">
+  <div class="text-center" id="track">
     <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="thumbnail component" id="thumbnail">
-
           </div>
           <div class="component">
             <div class="info component">
-              <div id="track-data">
-
-              </div>
               <div id="timer" class="property">
-
               </div>
-              <div id="controller" class="property">
-                <button onclick="mySound.play()">Play</button>
-                <button onclick="mySound.pause()">Pause</button>
-                <button onclick="mySound.stop()">Stop</button>
+              <div id="track-data">
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-3.4.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -199,7 +210,8 @@
             primaryMap.set('album', trackData.album);
             primaryMap.set('realsed', trackData.release_year);
             primaryMap.set('tags', trackData.tags)
-            primaryMap.set('thumbnail', trackData.thumbnail)
+            primaryMap.set('thumbnail', trackData.thumbnail);
+            //primaryMap.set('description', trackData.description);
             var html = createListElementByMap(primaryMap);
             console.log(html);
             var trackDataElement = document.getElementById('track-data');
