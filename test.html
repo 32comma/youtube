@@ -50,8 +50,8 @@
       background-size: cover;
       background-position: center;
       margin: 1rem;
-      width:400px;
-      height:400px;
+      width: 400px;
+      height: 400px;
     }
 
     .info {
@@ -84,11 +84,10 @@
       <div class="container">
         <div class="col"> </div>
         <div class="col-12 col-sm-auto">
-          <div id="controller" class="property">
-            <button class="btn btn-dark" onclick="mySound!=null?mySound.play():alert('Select track , plz')">▶</button>
-            <button class="btn btn-dark" onclick="mySound.pause()">｜｜</button>
-            <button class="btn btn-dark" onclick="mySound.stop()">■</button>
-          </div>
+          <button class="btn btn-dark" id="current">aaa</button>
+          <button class="btn btn-dark" onclick="mySound!=null?mySound.play():alert('Select track , plz')">▶</button>
+          <button class="btn btn-dark" onclick="mySound.pause()">｜｜</button>
+          <button class="btn btn-dark" onclick="mySound.stop()">■</button>
         </div>
 
       </div>
@@ -215,6 +214,8 @@
             primaryMap.set('realsed', trackData.release_year);
             primaryMap.set('tags', trackData.tags)
             primaryMap.set('thumbnail', trackData.thumbnail);
+            var currentElement = document.getElementById('current');
+            currentElement.innerHTML = `${trackData.artist} - ${trackData.title}`;
             //primaryMap.set('description', trackData.description);
             var html = createListElementByMap(primaryMap);
             console.log(html);
