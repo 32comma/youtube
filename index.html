@@ -65,9 +65,12 @@
   <div class="container mt-2">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a class="navbar-brand" href="index.html">Youtube</a>
       <div class="container">
-        <div class="col"> </div>
+        <div class="col">
+        </div>
         <div class="col-12 col-sm-auto">
-          <button class="btn btn-dark" id="current">aaa</button>
+          <button disabled class='btn btn-dark' id="timer" class="property">
+          </button>
+          <button disabled class="btn btn-dark" id="current"></button>
           <button class="btn btn-dark" onclick="mySound!=null?mySound.play():alert('Select track , plz')">Play</button>
           <button class="btn btn-dark" onclick="mySound.pause()">Pause</button>
           <button class="btn btn-dark" onclick="mySound.stop()">Stop</button>
@@ -121,8 +124,7 @@
           </div>
           <div class="component">
             <div class="info component">
-              <div id="timer" class="property">
-              </div>
+
               <div id="track-data">
               </div>
             </div>
