@@ -9,7 +9,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js"></script>
   <!-- Bootstrap -->
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-  <script>var mySound = null;</script>
+  <script>
+    var mySound = null;
+  </script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
   <style>
@@ -95,7 +97,7 @@
       <div class="container">
         <div class="col"> </div>
         <div class="col-12 col-sm-auto">
-          <button class="btn btn-dark" id="current">aaa</button>
+          <button class="btn btn-dark" id="current"></button>
           <button class="btn btn-dark play-button"
             onclick="mySound!=null?mySound.play():alert('Select track , plz')"></button>
           <button class="btn btn-dark pause-button" onclick="mySound.pause()"></button>
@@ -158,89 +160,119 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-3 col-12 recommend">
+        <div class="row mx-0">
+          <div class="col-12">
+            <h3 class="text-left mt-4 name">Pharrell Williams</h3>
+            <hr>
+            <div class="media mt-2" onclick="test('ZbZSe6N_BXs')" id="ZbZSe6N_BXs"> <img class="mr-3"
+                src="png/ZbZSe6N_BXs.png" width=64 height=64 alt="Generic placeholder image">
+              <div class="media-body">
+                <div class="title">Happy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12 recommend">
+        <div class="row mx-0">
+          <div class="col-12">
+            <h3 class="text-left mt-4 name">Epik High</h3>
+            <hr>
+            <div class="media mt-2" onclick="test('ZcnnUoyv-hs')" id="ZcnnUoyv-hs"> <img class="mr-3"
+                src="png/ZcnnUoyv-hs.png" width=64 height=64 alt="Generic placeholder image">
+              <div class="media-body">
+                <div class="title">Based On A True Story (ft. HEIZE)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap-4.4.1.js"></script>
-  <script>
-    var currentId = null;
-    function test(id) {
-      currentId = id;
-      if (mySound == null) {
-        mySound = new buzz.sound(`mp3/${id}.mp3`);
-      } else {
-        mySound.stop();
-        mySound = new buzz.sound(`mp3/${id}.mp3`);
-      }
-      console.log(id);
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+    <script>
+      var currentId = null;
 
-      mySound.play();
-      var trackData = null;
-
-      mySound.bind("timeupdate", function () {
-        var timer = buzz.toTimer(this.getTime());
-        document.getElementById("timer").innerHTML = timer;
-      });
-      function createListElementByList(elements) {
-        var html = "<ul>";
-        for (var i = 0; i < elements.length; i++) {
-          html += `<li'>${elements[i]}</li>`;
+      function test(id) {
+        currentId = id;
+        if (mySound == null) {
+          mySound = new buzz.sound(`mp3/${id}.mp3`);
+        } else {
+          mySound.stop();
+          mySound = new buzz.sound(`mp3/${id}.mp3`);
         }
-        html += "</ul>";
-        return;
-      }
-      var thumbnailElement = null;
-      function createListElementByMap(map) {
-        thumbnailElement = document.getElementById('thumbnail');
-        var html = "<ul>";
-        map.forEach((value, key, mapObject) => {
-          if (key == 'thumbnail') {
-            thumbnailElement.style.backgroundImage = `url(${map.get(key)})`;
-          } else {
-            html += `<li class='${key}'>${map.get(key)
-              }</li>`;
-          }
+        console.log(id);
+
+        mySound.play();
+        var trackData = null;
+
+        mySound.bind("timeupdate", function () {
+          var timer = buzz.toTimer(this.getTime());
+          document.getElementById("timer").innerHTML = timer;
         });
-        html += "</ul>";
-        return html;
-      }
 
-      console.log(id);
+        function createListElementByList(elements) {
+          var html = "<ul>";
+          for (var i = 0; i < elements.length; i++) {
+            html += `<li'>${elements[i]}</li>`;
+          }
+          html += "</ul>";
+          return;
+        }
+        var thumbnailElement = null;
 
-      var trackElement = document.getElementById('track-title');
-      var jsonRequest = new XMLHttpRequest();
-      jsonRequest.open("GET", `json/${currentId}.json`, true);
-      jsonRequest.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
-            trackData = JSON.parse(this.responseText);
-            var primaryMap = new Map();
-            primaryMap.set('id', trackData.id);
-            primaryMap.set('artist', trackData.artist);
-            primaryMap.set('title', trackData.title);
-            primaryMap.set('album', trackData.album);
-            primaryMap.set('realsed', trackData.release_year);
-            primaryMap.set('tags', trackData.tags)
-            primaryMap.set('thumbnail', trackData.thumbnail);
-            var currentElement = document.getElementById('current');
-            currentElement.innerHTML = `${trackData.artist} - ${trackData.title}`;
-            //primaryMap.set('description', trackData.description);
-            var html = createListElementByMap(primaryMap);
-            console.log(html);
-            var trackDataElement = document.getElementById('track-data');
-            trackDataElement.innerHTML = html;
+        function createListElementByMap(map) {
+          thumbnailElement = document.getElementById('thumbnail');
+          var html = "<ul>";
+          map.forEach((value, key, mapObject) => {
+            if (key == 'thumbnail') {
+              thumbnailElement.style.backgroundImage = `url(${map.get(key)})`;
+            } else {
+              html += `<li class='${key}'>${map.get(key)
+              }</li>`;
+            }
+          });
+          html += "</ul>";
+          return html;
+        }
+
+        console.log(id);
+
+        var trackElement = document.getElementById('track-title');
+        var jsonRequest = new XMLHttpRequest();
+        jsonRequest.open("GET", `json/${currentId}.json`, true);
+        jsonRequest.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              trackData = JSON.parse(this.responseText);
+              var primaryMap = new Map();
+              //primaryMap.set('id', trackData.id);
+              primaryMap.set('channel', trackData.channel);
+              primaryMap.set('title', trackData.title);
+              //primaryMap.set('album', trackData.album);
+              //primaryMap.set('released', trackData.release_year);
+              // primaryMap.set('tags', trackData.tags)
+              primaryMap.set('thumbnail', trackData.thumbnail);
+              var currentElement = document.getElementById('current');
+              currentElement.innerHTML = `${trackData.artist} - ${trackData.title}`;
+              //primaryMap.set('description', trackData.description);
+              var html = createListElementByMap(primaryMap);
+              console.log(html);
+              var trackDataElement = document.getElementById('track-data');
+              trackDataElement.innerHTML = html;
+            }
           }
         }
-      }
-      jsonRequest.send();
+        jsonRequest.send();
 
-    }
-    test('55TYgbk4kZs');
-    mySound.pause();
-  </script>
+      }
+      test('55TYgbk4kZs');
+      mySound.pause();
+    </script>
 </body>
 
 </html>
