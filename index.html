@@ -10,6 +10,8 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
   <script>var mySound = null;</script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -19,6 +21,7 @@
     html,
     body {
       width: 100%;
+      font-family: 'Hi Melody', cursive;
 
     }
 
@@ -45,6 +48,30 @@
       height: 300px;
     }
 
+    .play-button {
+      background-image: url('images/play.png');
+      background-position: center;
+      background-size: cover;
+      width: 32px;
+      height: 32px;
+    }
+
+    .pause-button {
+      background-image: url('images/pause.png');
+      background-position: center;
+      background-size: cover;
+      width: 32px;
+      height: 32px;
+    }
+
+    .stop-button {
+      background-image: url('images/stop.png');
+      background-position: center;
+      background-size: cover;
+      width: 32px;
+      height: 32px;
+    }
+
     .info {
       position: absolute;
     }
@@ -69,10 +96,10 @@
         <div class="col"> </div>
         <div class="col-12 col-sm-auto">
           <button class="btn btn-dark" id="current">aaa</button>
-          <button class="btn btn-dark"
-            onclick="mySound!=null?mySound.play():alert('Select track , plz')">[PLAY]</button>
-          <button class="btn btn-dark" onclick="mySound.pause()">[PAUSE]</button>
-          <button class="btn btn-dark" onclick="mySound.stop()">[STOP]</button>
+          <button class="btn btn-dark play-button"
+            onclick="mySound!=null?mySound.play():alert('Select track , plz')"></button>
+          <button class="btn btn-dark pause-button" onclick="mySound.pause()"></button>
+          <button class="btn btn-dark stop-button" onclick="mySound.stop()"></button>
         </div>
       </div>
   </div>
